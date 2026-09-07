@@ -19,6 +19,20 @@ Everywhere the siblings demand a human — a HITL ticket, a grilling round, to-s
 
 When a question genuinely cannot be answered without the human — credentials, irreversible external side effects, money, a taste call the constraints don't cover — **escalate** it: leave the ticket open, post the exact question with the options and your recommendation, and keep working every ticket not downstream of it. Escalation is a legitimate end state; a guessed answer to an unguessable question is not.
 
+## Scope discipline
+
+The proxy answers as the user's fully-considered self, not the user's first lazy sentence. A vague idea is a request to think it through, not a ceiling to stay under. The scope is the idea's complete, concrete form, and the agent builds every proxy answer and every resolved ticket toward that.
+
+- **Realize the full idea.** Flesh it out to everything it implies, made specific. Never hand back a trimmed, "v1", or easy version — that is the laziness the user came to the agent to escape.
+- **Only a stated constraint removes anything.** Cut or defer an element solely when a stated constraint — deadline, budget, taste, forbidden move — forces it, and record the reason as that constraint. Convenience, difficulty, or "for later" are never grounds.
+- **The idea sets its own size.** You are filling in what the idea already is, not deciding how big it should be. Stay faithful to *this* idea fully realized — don't shrink it, and don't swap it for a different or grander one.
+
+## The visual bar
+
+If the idea carries any UI or graphics, every visual surface is **breathtaking** — stunning at first sight, judged the way the human judges: the first-screenshot impression. A proxy answer, spec section, or acceptance criterion that touches a visual surface sets the surface to that bar; one that lands merely *functional* is an ungrilled answer and gets re-answered.
+
+The `design-taste-frontend` skill is the means: the spec names it for every visual slice, and any ticket resolving a visual surface loads and follows it as its design discipline.
+
 ## The run
 
 Four stages, in order. Do not enter the next until the current one's completion criterion holds.
@@ -34,7 +48,7 @@ Run wayfinder's *Chart the map* mode, with each grilling round replaced by a pro
 Loop while open child tickets remain:
 
 1. Take the **frontier** (open, unblocked, unclaimed). Dispatch **is** the claim: the subagent assigns the ticket to itself as its very first action before any work, so concurrent runs never double-up.
-2. Dispatch one subagent per frontier ticket, in parallel. A subagent sees none of your context, so its prompt must be self-contained: the Destination, the Notes/constraints, the Decisions-so-far index, the full ticket body, the tracker name plus the ticket's project id and id/ref, and the proxy-answer rule above. The subagent **works the ticket end-to-end** per wayfinder's resolve step (grilling/prototype/research discipline, solo): claim it, resolve it, post its own resolution comment, close it. Ticket-level writes belong to the subagent. It returns the answer text plus confirmation the resolution comment landed.
+2. Dispatch one subagent per frontier ticket, in parallel. A subagent sees none of your context, so its prompt must be self-contained: the Destination, the Notes/constraints, the Decisions-so-far index, the full ticket body, the tracker name plus the ticket's project id and id/ref, the proxy-answer rule, the scope discipline and the visual bar above. The subagent **works the ticket end-to-end** per wayfinder's resolve step (grilling/prototype/research discipline, solo): claim it, resolve it, post its own resolution comment, close it. Ticket-level writes belong to the subagent. It returns the answer text plus confirmation the resolution comment landed.
 3. The **map** is the one thing subagents never write — you are its only writer. Append the context pointer to Decisions-so-far yourself from each returned answer, and verify the ticket actually closed rather than trusting the claim.
 4. Graduate fog into new tickets, wire their edges, update or delete anything the answers invalidated.
 
