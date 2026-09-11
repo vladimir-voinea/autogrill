@@ -9,6 +9,7 @@ The run ends with:
 - a fully resolved **wayfinder map**
 - a published **spec** (itself a ticket on the map)
 - **tracer-bullet tickets** on the tracker, with acceptance criteria and blocking edges, ready to implement as-is
+- for an **iOS app**, a final **deployment ticket** that ships it: App Store Connect listing complete, build uploaded to TestFlight, the user invited to install it, and the version one click from Submit for Review
 
 Everything lives in the issue tracker — a run leaves no files on disk.
 
@@ -29,6 +30,12 @@ The human's only input is the **constraints** given at invocation. They're recor
 ## What it depends on
 
 Autogrill orchestrates sibling skills — `wayfinder`, `to-spec`, `to-tickets`, `grilling`, `prototype`, `research`, `domain-modeling` — and an issue tracker. If a sibling can't be invoked programmatically, it reads its `SKILL.md` and follows it.
+
+An iOS idea additionally depends on `appstore-publish`: the final deployment ticket names it, and whoever works the ticket loads and follows it.
+
+## The iOS ending
+
+An iOS run ends with a **deployment ticket** blocked by every other ticket in the set. Its acceptance criteria are `appstore-publish`'s ready-to-submit checklist: the app registered on App Store Connect, the listing complete, the build in TestFlight, the user invited and installed, and the version one click from Submit for Review. The human's steps — ASC credentials, the Paid Apps agreement, the app record Apple only creates in a browser, the final Submit click — are recorded in the ticket rather than guessed.
 
 ## Proxy answers & escalation
 

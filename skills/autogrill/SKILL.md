@@ -5,7 +5,7 @@ disable-model-invocation: true
 argument-hint: "A vague idea, plus any constraints"
 ---
 
-A vague idea arrives. Autogrill runs **wayfinder → to-spec → to-tickets** to completion without a human at the wheel: it asks the grilling questions and answers them too, and resolves each wayfinder ticket in a fresh **subagent**, which is what dissolves wayfinder's one-ticket-per-session limit — the subagent *is* the session. The run ends with the map fully resolved, the spec published, and tracer-bullet tickets on the tracker that the user can implement as-is.
+A vague idea arrives. Autogrill runs **wayfinder → to-spec → to-tickets** to completion without a human at the wheel: it asks the grilling questions and answers them too, and resolves each wayfinder ticket in a fresh **subagent**, which is what dissolves wayfinder's one-ticket-per-session limit — the subagent *is* the session. The run ends with the map fully resolved, the spec published, and tracer-bullet tickets on the tracker that the user can implement as-is — plus, for an iOS app, the deployment ticket that ships it.
 
 The human's only input is the **constraints** given at invocation (stack, deadline, budget, taste, forbidden moves). Record them verbatim in the map's Notes; every answer below must honor them.
 
@@ -33,6 +33,16 @@ If the idea carries any UI or graphics, every visual surface is **breathtaking**
 
 The `design-taste-frontend` skill is the means: the spec names it for every visual slice, and any ticket resolving a visual surface loads and follows it as its design discipline.
 
+## The iOS ending
+
+When the idea is an **iOS app** — the constraints name iPhone/iPad, SwiftUI, the App Store, TestFlight — the ticket set does not end at "the app works". It ends with a **deployment ticket**, and that ticket is the last node in the graph: every other ticket blocks it.
+
+That ticket ships the app rather than describing it. Its job: register the app on App Store Connect, complete the listing (metadata, screenshots, age rating, pricing, privacy), upload the build to TestFlight, invite the user to install it from TestFlight, and leave the version page one click from **Submit for Review**. Its acceptance criteria are that skill's ready-to-submit checklist, written as concrete, checkable items — a build the user actually installed from TestFlight, not a green log line.
+
+The `appstore-publish` skill is the means: the ticket names it, and whoever works the ticket loads and follows it — its pipelines, its two auth paths, its package validation, and its verification discipline. The store screenshots are a visual surface, so the visual bar above applies to them too.
+
+The deployment ticket is the run's one legitimate escalation surface. The ASC API key, the Paid Apps agreement, the app record Apple only creates in a browser, and the final Submit click belong to the human; record them in the ticket as the human's steps, with the exact question, so the ticket is workable end to end rather than blocked.
+
 ## The run
 
 Four stages, in order. Do not enter the next until the current one's completion criterion holds.
@@ -48,7 +58,7 @@ Run wayfinder's *Chart the map* mode, with each grilling round replaced by a pro
 Loop while open child tickets remain:
 
 1. Take the **frontier** (open, unblocked, unclaimed). Dispatch **is** the claim: the subagent assigns the ticket to itself as its very first action before any work, so concurrent runs never double-up.
-2. Dispatch one subagent per frontier ticket, in parallel. A subagent sees none of your context, so its prompt must be self-contained: the Destination, the Notes/constraints, the Decisions-so-far index, the full ticket body, the tracker name plus the ticket's project id and id/ref, the proxy-answer rule, the scope discipline and the visual bar above. The subagent **works the ticket end-to-end** per wayfinder's resolve step (grilling/prototype/research discipline, solo): claim it, resolve it, post its own resolution comment, close it. Ticket-level writes belong to the subagent. It returns the answer text plus confirmation the resolution comment landed.
+2. Dispatch one subagent per frontier ticket, in parallel. A subagent sees none of your context, so its prompt must be self-contained: the Destination, the Notes/constraints, the Decisions-so-far index, the full ticket body, the tracker name plus the ticket's project id and id/ref, the proxy-answer rule, the scope discipline, the visual bar and the iOS ending above. The subagent **works the ticket end-to-end** per wayfinder's resolve step (grilling/prototype/research discipline, solo): claim it, resolve it, post its own resolution comment, close it. Ticket-level writes belong to the subagent. It returns the answer text plus confirmation the resolution comment landed.
 3. The **map** is the one thing subagents never write — you are its only writer. Append the context pointer to Decisions-so-far yourself from each returned answer, and verify the ticket actually closed rather than trusting the claim.
 4. Graduate fog into new tickets, wire their edges, update or delete anything the answers invalidated.
 
@@ -62,10 +72,10 @@ Run **to-spec** with the map and the full decision record as the conversation. T
 
 ### 4. Tickets
 
-Run **to-tickets** on the spec. The breakdown quiz is a proxy answer: hold the vertical-slice rules, and split until each slice fits one fresh context window. Publish in dependency order with real blocking edges.
+Run **to-tickets** on the spec. The breakdown quiz is a proxy answer: hold the vertical-slice rules, and split until each slice fits one fresh context window. Publish in dependency order with real blocking edges. For an iOS app, the **deployment ticket** is published last, wired to be blocked by every other ticket in the set.
 
-**Done when:** every slice is published with acceptance criteria and blocked-by links, and the spec links the ticket set.
+**Done when:** every slice is published with acceptance criteria and blocked-by links, the spec links the ticket set, and — for an iOS app — the deployment ticket closes the graph.
 
 ## Handoff
 
-Report to the human, by name and link: the Destination; the map, spec, and tickets; the proxy answers that most deserve a skim (the ones a human might plausibly reverse, marked as such); and every escalation, as a question they can answer in one line. From there the human implements tickets, or re-answers a proxy and reruns from the affected ticket.
+Report to the human, by name and link: the Destination; the map, spec, and tickets; the proxy answers that most deserve a skim (the ones a human might plausibly reverse, marked as such); and every escalation, as a question they can answer in one line — for an iOS app that includes the deployment ticket's human steps (ASC credentials, the Paid Apps agreement, the final Submit click). From there the human implements tickets, or re-answers a proxy and reruns from the affected ticket.
